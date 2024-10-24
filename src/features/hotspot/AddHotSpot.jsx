@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { app } from '../../firebase/firebaseConfig';
 const firestore = getFirestore(app);
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddHotspot = () => {
    const [geofenceid, setGeoFenceid] = useState('');
@@ -17,16 +19,28 @@ const AddHotspot = () => {
          alert('All fields must be filled out!');
          return;
       }
-
-      const result = await addDoc(collection(firestore, "Geofences"),
-         {
+      try {
+         await addDoc(collection(firestore, "Geofences"), {
             geofenceid, 
             latitude, 
             longitude, 
             radius, 
             severity
-         })
-
+         });
+         toast.success('Hotspot added successfully!', {
+            position: 'top-center'
+         });
+         setGeoFenceid('');
+         setLatitude('');
+         setLongitude('');
+         setRadius('');
+         setSeverity('');
+      } catch (error) {
+         console.error('Error adding hotspot:', error);
+         toast.error('Failed to add hotspot!', {
+            position: 'top-center'
+         });
+      }
    };
 
    return (
@@ -106,6 +120,7 @@ const AddHotspot = () => {
                </div>
 
             </form>
+            <ToastContainer />
          </div>
       </div>
    );
