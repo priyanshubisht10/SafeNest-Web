@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 
 const Login = () => {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
+   const navigate = useNavigate();
 
    const handleSubmit = (e) => {
       e.preventDefault();
       if (email === "police@gmail.com" && password === "1234567890") {
          console.log("Login successful!");
+         navigate('/home');
       } else {
          alert('Login Credentials are incorrect!');
       }
