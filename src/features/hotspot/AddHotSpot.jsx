@@ -4,7 +4,7 @@ import { app } from '../../firebase/firebaseConfig';
 const firestore = getFirestore(app);
 
 const AddHotspot = () => {
-   const [geoFenceid, setGeoFenceid] = useState('');
+   const [geofenceid, setGeoFenceid] = useState('');
    const [latitude, setLatitude] = useState('');
    const [longitude, setLongitude] = useState('');
    const [radius, setRadius] = useState('');
@@ -13,14 +13,14 @@ const AddHotspot = () => {
    const handleSubmit = async (e) => {
       e.preventDefault();
 
-      if (!geoFenceid || !latitude || !longitude || !radius || !severity) {
+      if (!geofenceid || !latitude || !longitude || !radius || !severity) {
          alert('All fields must be filled out!');
          return;
       }
 
       const result = await addDoc(collection(firestore, "Geofences"),
          {
-            geoFenceid, 
+            geofenceid, 
             latitude, 
             longitude, 
             radius, 
@@ -39,7 +39,7 @@ const AddHotspot = () => {
                   <input
                      type="text"
                      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                     value={geoFenceid}
+                     value={geofenceid}
                      onChange={(e) => setGeoFenceid(e.target.value)}
                      placeholder="Enter GeoFence ID"
                      required
