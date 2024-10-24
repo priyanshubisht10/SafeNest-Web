@@ -31,7 +31,7 @@ const AddHotspot = () => {
 
    return (
       <div className="flex justify-center items-center h-screen">
-         <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
+         <div className="bg-white shadow-lg rounded-lg p-6 max-w-2xl w-full">
             <h2 className="text-2xl font-bold mb-4 text-center">Add Hotspot</h2>
             <form onSubmit={handleSubmit}>
                <div className="mb-4">
