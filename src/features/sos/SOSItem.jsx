@@ -1,5 +1,5 @@
 import { MdDeleteOutline } from "react-icons/md";
-const SOSItem = ({ id, name, msg, imageUrl, location }) => {
+const SOSItem = ({ id, name, msg, imageUrl, location, onDelete }) => {
   return (
     <div className="flex bg-white shadow-lg rounded-lg overflow-hidden mb-4 p-4">
       <div className="w-1/3 flex justify-center my-auto">
@@ -17,7 +17,7 @@ const SOSItem = ({ id, name, msg, imageUrl, location }) => {
         </p>
       </div>
       <div className="p-2">
-        <button className="text-2xl hover:text-red-500"> <MdDeleteOutline/> </button>
+        <button className="text-2xl hover:text-red-500" onClick={() => onDelete(id)}> <MdDeleteOutline/> </button>
       </div>
     </div>
   );

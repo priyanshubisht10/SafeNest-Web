@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import SOSItem from './SOSItem'; 
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs,deleteDoc, doc } from 'firebase/firestore';
 import { app } from '../../firebase/firebaseConfig';
 
 const firestore = getFirestore(app);
@@ -33,6 +33,15 @@ function SOS() {
       fetchSOSData();
    }, []);
 
+   const handleDeleteSOS = async (id) => {
+      try {
+         await deleteDoc(doc(firestore, 'messages', id));
+         setSosData(prevData => prevData.filter(sos => sos.id !== id));
+      } catch (error) {
+         console.error("Error deleting SOS: ", error);
+      }
+   };
+
    return (
       <div className="bg-white rounded-lg shadow-lg p-6">
          <h2 className="text-2xl font-bold text-gray-900 mb-6">SOS Alerts</h2>
@@ -48,10 +57,12 @@ function SOS() {
                   <SOSItem
                      key={sos.id} 
                      name={sos.name}
+                     id={sos.id}
                      location={sos.location}
                      imageUrl={sos.imageUrl}
                      mapLink={sos.mapLink}
                      msg={sos.msg}
+                     onDelete={handleDeleteSOS}
                   />
                ))}
             </div>
